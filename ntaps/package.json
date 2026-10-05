@@ -1,0 +1,42 @@
+{
+  "name": "@andreejait/ntaps",
+  "version": "0.2.0",
+  "description": "A TypeScript backend generator and clean-architecture service template.",
+  "type": "module",
+  "files": [
+    "src",
+    "bundled-template",
+    "ntaps.schema.json"
+  ],
+  "bin": {
+    "ntaps": "src/index.ts"
+  },
+  "repository": "https://github.com/AndreeJait/ntaps-backend-kit.git",
+  "homepage": "https://github.com/AndreeJait/ntaps-backend-kit#readme",
+  "bugs": "https://github.com/AndreeJait/ntaps-backend-kit/issues",
+  "keywords": [
+    "typescript",
+    "backend",
+    "generator",
+    "clean-architecture",
+    "express",
+    "bullmq"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc --noEmit && npm test",
+    "prepack": "node --experimental-strip-types scripts/package-template.ts copy",
+    "postpack": "node --experimental-strip-types scripts/package-template.ts clean",
+    "test": "node --experimental-strip-types --test test/*.test.ts"
+  },
+  "engines": {
+    "node": ">=22.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "typescript": "^5.9.0"
+  }
+}

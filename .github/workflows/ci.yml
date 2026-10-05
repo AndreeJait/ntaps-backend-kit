@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  ntaps:
+    name: NTAPS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: ntaps/package-lock.json
+          package-manager-cache: true
+      - run: npm ci
+        working-directory: ntaps
+      - run: npm run check
+        working-directory: ntaps
+      - run: npm run build
+        working-directory: ntaps
+      - run: npm pack --dry-run
+        working-directory: ntaps
+
+  template:
+    name: Backend template
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: template-be/package-lock.json
+          package-manager-cache: true
+      - run: npm ci
+        working-directory: template-be
+      - run: npm run check
+        working-directory: template-be
+      - run: npm run build
+        working-directory: template-be

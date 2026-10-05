@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NTAPS configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "sourceRoot": { "type": "string", "default": "src" },
+    "modulesDirectory": { "type": "string", "default": "modules" },
+    "registryFile": { "type": "string", "default": "src/modules/generated.ts" },
+    "registryMarkers": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "imports": { "type": "string" },
+        "routes": { "type": "string" }
+      }
+    },
+    "templates": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "api": { "type": "string" },
+        "usecase": { "type": "string" },
+        "usecaseTest": { "type": "string" },
+        "repositoryPort": { "type": "string" },
+        "repositoryAdapter": { "type": "string" }
+      }
+    }
+  }
+}

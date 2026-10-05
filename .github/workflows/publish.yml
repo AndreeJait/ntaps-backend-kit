@@ -1,0 +1,38 @@
+name: Publish NTAPS
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+          scope: "@andreejait"
+          cache: npm
+          cache-dependency-path: ntaps/package-lock.json
+          package-manager-cache: true
+      - name: Verify release tag matches package version
+        working-directory: ntaps
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: test "v$(node -p "require('./package.json').version")" = "$RELEASE_TAG"
+      - run: npm ci
+        working-directory: ntaps
+      - run: npm run check
+        working-directory: ntaps
+      - run: npm run build
+        working-directory: ntaps
+      - run: npm publish
+        working-directory: ntaps
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

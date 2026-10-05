@@ -1,0 +1,11 @@
+{
+  "$schema": "../ntaps/ntaps.schema.json",
+  "sourceRoot": "src",
+  "modulesDirectory": "modules",
+  "registryFile": "src/modules/generated.ts",
+  "registryMarkers": {
+    "imports": "// generator:imports",
+    "routes": "  // generator:routes"
+  },
+  "templates": {}
+}
